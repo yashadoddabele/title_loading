@@ -458,6 +458,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 412055633999926351, guid: 0e10bdfd7f96744b1a0f450f05d3f50a, type: 3}
+      propertyPath: m_UseOneWay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3274798651667206174, guid: 0e10bdfd7f96744b1a0f450f05d3f50a, type: 3}
       propertyPath: m_Name
       value: Mouse
