@@ -25,7 +25,7 @@ public class UIObject : MonoBehaviour
         ClampPosition();
     }
 
-    private Vector3 getMouseOffset() {
+    public Vector3 getMouseOffset() {
         Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position);
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPos.z);
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mousePos);
