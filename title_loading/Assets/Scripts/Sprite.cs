@@ -8,18 +8,24 @@ public class Sprite : MonoBehaviour
     public float jumpForce = 18f;
     public float speed = 17f;
     public float castDistance;
-    public LayerMask groundLayer;  
+    public LayerMask groundLayer; 
+    private LayerMask combinedMask; 
     // Respawn & clamp variables
     public float fallThreshold = -17f; 
     public Vector2 respawnPoint;
     public float minX, maxX;
     // Animation variables
     private bool isFacingRight = true;
+    // Level variables 
+    public bool hasTriggeredExit = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        combinedMask = groundLayer | (1 << LayerMask.NameToLayer("Mouse"));
+
     }
 
     // Update is called once per frame
@@ -82,7 +88,7 @@ public class Sprite : MonoBehaviour
         //For debugging
         //Debug.DrawRay(transform.position, Vector2.down * castDistance, Color.red);
     
-        if (hit.collider != null && hit.collider.CompareTag("Ground"))
+        if (hit.collider != null)
         {
             if (Vector2.Dot(hit.normal, Vector2.up) >= 0.9f)
             {
@@ -102,7 +108,7 @@ public class Sprite : MonoBehaviour
     }
 
     // Respawns sprite at designated respawn area for level
-    private void Respawn()
+    public void Respawn()
     {
         Vector2 adjustedRespawn = respawnPoint;
         adjustedRespawn.y += 0.5f; // For better physics
@@ -120,5 +126,16 @@ public class Sprite : MonoBehaviour
     {
         float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
         transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
+    }
+
+    // Checks if user has reached the exit point of the level and loads the next one
+     private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!hasTriggeredExit && other.CompareTag("Exit"))
+        {
+            hasTriggeredExit = true;
+            other.gameObject.GetComponent<Collider2D>().enabled = false;
+            LevelManager.Instance.LoadNextLevel();
+        }
     }
 }
