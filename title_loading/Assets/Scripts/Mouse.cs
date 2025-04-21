@@ -13,6 +13,13 @@ public class Mouse : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    void Awake()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+
     // Updates this custom cursor to follow exactly where the user moves their OS mouse
     void Update()
     {

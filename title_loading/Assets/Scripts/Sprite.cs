@@ -14,6 +14,7 @@ public class Sprite : MonoBehaviour
     public float fallThreshold = -17f; 
     public Vector2 respawnPoint;
     public float minX, maxX;
+    public float maxY;
     // Animation variables
     private bool isFacingRight = true;
     // Level variables 
@@ -125,7 +126,8 @@ public class Sprite : MonoBehaviour
     private void ClampPosition()
     {
         float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
-        transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
+        float clampedY = Mathf.Clamp(transform.position.y, fallThreshold, maxY);
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 
     // Checks if user has reached the exit point of the level and loads the next one
@@ -136,6 +138,15 @@ public class Sprite : MonoBehaviour
             hasTriggeredExit = true;
             other.gameObject.GetComponent<Collider2D>().enabled = false;
             LevelManager.Instance.LoadNextLevel();
+        }
+    }
+
+    // Upon a collision with the enemy, respawn them
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Respawn();
         }
     }
 }

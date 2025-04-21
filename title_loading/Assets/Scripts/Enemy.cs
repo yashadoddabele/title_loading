@@ -39,18 +39,5 @@ public class Enemy : MonoBehaviour
         localScale.x *= -1;
         transform.localScale = localScale;
     }
-
-    // Upon a collision with the player, respawn them
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            Sprite playerController = collision.gameObject.GetComponent<Sprite>();
-            if(playerController != null)
-            {
-                playerController.Respawn();
-            }
-        }
-    }
 }
 
