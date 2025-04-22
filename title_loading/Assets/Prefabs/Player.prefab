@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7130487582281846345, guid: df172d344f05b4aef8a5cdf9117d2470, type: 3}
+  m_Sprite: {fileID: 8475019637894585037, guid: 0e830c5c87ab845ee845e514f1189e42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,7 +128,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.4, y: 4.17}
+    oldSize: {x: 0.12, y: 0.16}
     newSize: {x: 3.4, y: 4.17}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -175,3 +175,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971cfea3c073a4800899ac19b7417275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidBody: {fileID: 0}
+  jumpForce: 18
+  speed: 17
+  castDistance: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  fallThreshold: -17
+  respawnPoint: {x: 0, y: 0}
+  minX: 0
+  maxX: 0
+  maxY: 0
+  hasTriggeredExit: 0

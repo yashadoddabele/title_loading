@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            //Probably add an end screen here
+            //add for end level
         }
     }
 

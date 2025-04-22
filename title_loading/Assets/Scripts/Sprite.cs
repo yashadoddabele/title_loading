@@ -4,6 +4,8 @@ public class Sprite : MonoBehaviour
 {
     // Components of sprite
     public Rigidbody2D rigidBody;
+    //Animator variables 
+    public Animator animator;
     // Physics & raycasting variables
     public float jumpForce = 18f;
     public float speed = 17f;
@@ -26,7 +28,7 @@ public class Sprite : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         combinedMask = groundLayer | (1 << LayerMask.NameToLayer("Mouse"));
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class Sprite : MonoBehaviour
         MirrorSprite();
         HandleJump();
         ClampPosition();
+        UpdateAnimations(); 
     }
 
     // Updates horizontal and vertical velocity of sprite based on arrow keys
@@ -153,4 +156,37 @@ public class Sprite : MonoBehaviour
             Respawn();
         }
     }
+
+   private void UpdateAnimations()
+{
+    bool grounded = isGrounded();
+    bool upPressed = Input.GetKey(KeyCode.UpArrow);
+    bool leftPressed = Input.GetKey(KeyCode.LeftArrow);
+    bool rightPressed = Input.GetKey(KeyCode.RightArrow);
+
+    // Jumping animation
+    if (upPressed && grounded)
+    {
+        animator.SetBool("isJumping", true);
+        animator.SetFloat("Speed", 0);
+    }
+    // Walking animation
+    else if ((leftPressed || rightPressed) && grounded)
+    {
+        animator.SetBool("isJumping", false);
+        animator.SetFloat("Speed", 1); // Any non-zero value works
+    }
+    // Idle animation
+    else if (grounded)
+    {
+        animator.SetBool("isJumping", false);
+        animator.SetFloat("Speed", 0);
+    }
+    // In air without pressing jump (e.g., falling)
+    else
+    {
+        animator.SetBool("isJumping", true);
+        animator.SetFloat("Speed", 0);
+    }
+}
 }
