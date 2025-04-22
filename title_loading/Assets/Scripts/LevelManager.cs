@@ -34,10 +34,6 @@ public class LevelManager : MonoBehaviour
         {
             LoadLevel();
         }
-        else
-        {
-            //add for end level
-        }
     }
 
     // Loads a scene
@@ -48,5 +44,10 @@ public class LevelManager : MonoBehaviour
         if (Time.timeScale != 0) {
             SceneManager.LoadSceneAsync(sceneToLoad);
         }
+    }
+
+    public void restartLoop() {
+        currentLevel = 1;
+        LoadLevel();
     }
 }
