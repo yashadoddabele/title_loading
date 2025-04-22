@@ -6,6 +6,7 @@ public class XButton : MonoBehaviour
     {
         Debug.Log("mouse clicked");
         if (gameObject.CompareTag("Enemy")) {
+            AudioManager.Instance.EnemySound();
             Destroy(gameObject);
         }
         else {

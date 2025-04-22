@@ -35,6 +35,7 @@ public class Sprite : MonoBehaviour
         // Respawn sprite if falling below screen
         if (transform.position.y < fallThreshold)
         {
+            AudioManager.Instance.DyingSound();
             Respawn();
         }
 
@@ -78,6 +79,7 @@ public class Sprite : MonoBehaviour
         bool grounded = isGrounded();
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
+            AudioManager.Instance.JumpSound();
             rigidBody.linearVelocity = new Vector2(rigidBody.linearVelocity.x, jumpForce);
         }
     }
@@ -135,6 +137,7 @@ public class Sprite : MonoBehaviour
     {
         if (!hasTriggeredExit && other.CompareTag("Exit"))
         {
+            AudioManager.Instance.ClearSound();
             hasTriggeredExit = true;
             other.gameObject.GetComponent<Collider2D>().enabled = false;
             LevelManager.Instance.LoadNextLevel();
@@ -146,6 +149,7 @@ public class Sprite : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy"))
         {
+            AudioManager.Instance.DyingSound();
             Respawn();
         }
     }
